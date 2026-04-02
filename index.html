@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -94,6 +94,24 @@
         }
 
         /* --- Navbar --- */
+        .desktop-only {
+            display: flex !important;
+        }
+
+        .mobile-only {
+            display: none !important;
+        }
+
+        @media (max-width: 768px) {
+            .desktop-only {
+                display: none !important;
+            }
+
+            .mobile-only {
+                display: flex !important;
+            }
+        }
+
         nav {
             position: fixed;
             top: 0;
@@ -125,7 +143,7 @@
             font-weight: 600;
         }
 
-        /* --- Gooey Navigation (PC Only) --- */
+        /* --- Navigation Links --- */
         @media (min-width: 769px) {
             .nav-links-wrapper {
                 position: absolute;
@@ -135,121 +153,30 @@
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                pointer-events: none;
-                /* Let container handle clicks */
             }
 
-            .gooey-nav-container {
-                pointer-events: auto;
-                --color-1: #555;
-                --color-2: #333;
-                --color-3: #777;
-                --color-4: #222;
-                position: relative;
-                padding: 10px 0;
-            }
-
-            .gooey-nav-container nav ul {
+            .nav-links-wrapper ul {
                 display: flex;
-                gap: 50px;
+                gap: 40px;
                 margin: 0;
                 padding: 0;
                 list-style: none;
-                position: relative;
-                z-index: 10;
             }
 
-            .gooey-nav-container nav ul li {
-                position: relative;
-            }
-
-            .gooey-nav-container nav ul li a {
-                font-size: 14px;
+            .nav-links-wrapper ul li a {
+                font-size: 13px;
                 text-transform: uppercase;
                 letter-spacing: 1px;
                 font-weight: 500;
                 color: var(--text-color);
-                padding: 10px 20px;
-                display: block;
-                transition: color 0.3s ease;
-                opacity: 1 !important;
-                /* Managed by gooey effect */
+                opacity: 0.6;
+                transition: opacity 0.3s ease;
+                text-decoration: none;
             }
 
-            .gooey-nav-container .effect {
-                position: absolute;
-                border-radius: 50px;
-                pointer-events: none;
-                transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
-                display: flex;
-                align-items: center;
-                justify-content: center;
-            }
-
-            .gooey-nav-container .effect.filter {
-                background: var(--text-color);
-                filter: url('#goo');
-                z-index: 1;
-            }
-
-            .gooey-nav-container .effect.text {
-                background: var(--text-color);
-                color: var(--bg-color);
-                z-index: 11;
-                font-size: 14px;
-                text-transform: uppercase;
-                letter-spacing: 1px;
-                font-weight: 500;
-                overflow: hidden;
-                white-space: nowrap;
-                opacity: 0;
-                transition: opacity 0.3s ease, all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
-            }
-
-            .gooey-nav-container .effect.text.active {
+            .nav-links-wrapper ul li a:hover,
+            .nav-links-wrapper ul li a.active {
                 opacity: 1;
-            }
-
-            /* --- Particles --- */
-            .particle {
-                position: absolute;
-                width: 0;
-                height: 0;
-                left: 50%;
-                top: 50%;
-                pointer-events: none;
-            }
-
-            .particle .point {
-                position: absolute;
-                width: 20px;
-                height: 20px;
-                border-radius: 50%;
-                background: var(--color, white);
-                transform: translate(-50%, -50%) scale(0);
-            }
-
-            .particle.active .point {
-                animation: particle-anim var(--time) ease-out forwards;
-            }
-
-            @keyframes particle-anim {
-                0% {
-                    transform: translate(var(--start-x), var(--start-y)) scale(0) rotate(0deg);
-                }
-
-                20% {
-                    transform: translate(var(--start-x), var(--start-y)) scale(var(--scale)) rotate(var(--rotate));
-                }
-
-                100% {
-                    transform: translate(var(--end-x), var(--end-y)) scale(0) rotate(calc(var(--rotate) * 2));
-                }
-            }
-
-            /* Hide legacy nav links if they exist */
-            nav>.container>.nav-links {
-                display: none;
             }
         }
 
@@ -258,12 +185,11 @@
             .nav-links-wrapper {
                 display: none;
             }
-
             .nav-links {
                 display: none;
-                /* Hide original nav links */
             }
         }
+
 
         .admin-pill {
             background: var(--text-color);
@@ -279,6 +205,29 @@
 
         .admin-pill:hover {
             background: #333;
+        }
+
+        /* --- Pulse Animation for Contact Button --- */
+        @keyframes pulse-white {
+            0% {
+                box-shadow: 0 0 0 0 rgba(15, 15, 13, 0.4);
+            }
+            70% {
+                box-shadow: 0 0 0 10px rgba(15, 15, 13, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(15, 15, 13, 0);
+            }
+        }
+
+        .pulse-button {
+            animation: pulse-white 2s infinite;
+        }
+
+        .contact-left h2 {
+            font-family: 'DM Serif Display', serif !important;
+            font-size: 40px;
+            margin-bottom: 20px;
         }
 
         /* --- Hero --- */
@@ -782,7 +731,7 @@
 
         /* --- Projects --- */
 
-        /* --- Circular Gallery --- */
+        /* --- Radial Orbital Timeline --- */
         .projects-flex-wrapper {
             display: flex;
             flex-direction: column;
@@ -790,24 +739,121 @@
             margin-top: 60px;
         }
 
-        .circular-gallery {
+        .orbital-timeline-container {
             width: 100%;
             height: 600px;
             position: relative;
-            cursor: grab;
             overflow: hidden;
             border-radius: 24px;
-            background: rgba(0, 0, 0, 0.02);
+            background: #0a0a0a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        .circular-gallery:active {
-            cursor: grabbing;
+        .orbital-center {
+            position: absolute;
+            width: 56px; height: 56px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #a855f7, #3b82f6, #14b8a6);
+            display: flex; align-items: center; justify-content: center;
+            z-index: 10;
+            animation: orbitalPulse 2s cubic-bezier(0.4,0,0.6,1) infinite;
+        }
+        .orbital-center-inner { width: 28px; height: 28px; border-radius: 50%; background: rgba(255,255,255,0.8); }
+        .orbital-center-ring1, .orbital-center-ring2 {
+            position: absolute; border-radius: 50%; border: 1px solid rgba(255,255,255,0.2);
+            animation: orbitalPing 1.5s cubic-bezier(0,0,0.2,1) infinite;
+        }
+        .orbital-center-ring1 { width: 72px; height: 72px; opacity: 0.7; }
+        .orbital-center-ring2 { width: 88px; height: 88px; opacity: 0.4; animation-delay: 0.5s; }
+        .orbital-orbit-ring {
+            position: absolute; width: 400px; height: 400px;
+            border-radius: 50%; border: 1px solid rgba(255,255,255,0.08);
+            pointer-events: none;
         }
 
-        .circular-gallery canvas {
-            display: block;
-            width: 100%;
-            height: 100%;
+        @keyframes orbitalPulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.7;transform:scale(1.05)} }
+        @keyframes orbitalPing { 75%,100%{transform:scale(1.8);opacity:0} }
+
+        .orbital-node {
+            position: absolute; cursor: pointer;
+            transition: all 0.7s cubic-bezier(0.4,0,0.2,1);
+            z-index: 20;
+        }
+        .orbital-node-icon {
+            width: 40px; height: 40px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            border: 2px solid rgba(255,255,255,0.35);
+            background: #0a0a0a; color: #fff;
+            transition: all 0.3s ease;
+            font-size: 16px;
+        }
+        .orbital-node.active .orbital-node-icon {
+            background: #fff; color: #000;
+            border-color: #fff; transform: scale(1.5);
+            box-shadow: 0 0 20px rgba(255,255,255,0.3);
+        }
+        .orbital-node.related .orbital-node-icon {
+            background: rgba(255,255,255,0.4); color: #000;
+            border-color: #fff;
+            animation: orbitalPulse 1s cubic-bezier(0.4,0,0.6,1) infinite;
+        }
+        .orbital-node-label {
+            position: absolute; top: 48px; left: 50%; transform: translateX(-50%);
+            white-space: nowrap; font-size: 11px; font-weight: 600;
+            letter-spacing: 0.5px; color: rgba(255,255,255,0.6);
+            transition: all 0.3s ease; text-align: center;
+        }
+        .orbital-node.active .orbital-node-label { color: #fff; transform: translateX(-50%) scale(1.1); }
+        .orbital-node-glow {
+            position: absolute; border-radius: 50;
+            background: radial-gradient(circle, rgba(255,255,255,0.15) 0%, transparent 70%);
+            pointer-events: none; top: 50%; left: 50%; transform: translate(-50%,-50%);
+        }
+
+        .orbital-card {
+            position: absolute; top: 70px; left: 50%; transform: translateX(-50%);
+            width: 260px; background: rgba(0,0,0,0.92); backdrop-filter: blur(16px);
+            border: 1px solid rgba(255,255,255,0.2); border-radius: 12px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.5), 0 0 20px rgba(255,255,255,0.05);
+            padding: 20px; z-index: 200; opacity: 0; pointer-events: none;
+            transition: opacity 0.3s ease; font-family: 'DM Sans', sans-serif;
+        }
+        .orbital-card.visible { opacity: 1; pointer-events: auto; }
+        .orbital-card-connector {
+            position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
+            width: 1px; height: 12px; background: rgba(255,255,255,0.4);
+        }
+        .orbital-card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+        .orbital-card-badge {
+            font-size: 10px; font-weight: 600; padding: 3px 8px; border-radius: 20px;
+            text-transform: uppercase; letter-spacing: 0.5px;
+        }
+        .orbital-card-badge.completed { background: #fff; color: #000; }
+        .orbital-card-badge.in-progress { background: rgba(255,255,255,0.2); color: #fff; border: 1px solid rgba(255,255,255,0.3); }
+        .orbital-card-badge.pending { background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.6); }
+        .orbital-card-date { font-size: 10px; color: rgba(255,255,255,0.4); font-family: monospace; }
+        .orbital-card-title { font-size: 14px; font-weight: 600; color: #fff; margin-bottom: 8px; }
+        .orbital-card-desc { font-size: 12px; color: rgba(255,255,255,0.7); line-height: 1.5; margin-bottom: 12px; }
+        .orbital-card-energy { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 10px; }
+        .orbital-card-energy-header { display: flex; justify-content: space-between; font-size: 10px; color: rgba(255,255,255,0.5); margin-bottom: 4px; }
+        .orbital-card-energy-bar { width: 100%; height: 3px; background: rgba(255,255,255,0.1); border-radius: 3px; overflow: hidden; }
+        .orbital-card-energy-fill { height: 100%; background: linear-gradient(90deg, #3b82f6, #a855f7); border-radius: 3px; transition: width 0.5s ease; }
+        .orbital-card-links { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 10px; margin-top: 10px; }
+        .orbital-card-links h5 { font-size: 9px; text-transform: uppercase; letter-spacing: 1px; color: rgba(255,255,255,0.5); margin-bottom: 6px; }
+        .orbital-card-link-btn {
+            display: inline-flex; align-items: center; gap: 4px;
+            font-size: 11px; padding: 3px 8px; border: 1px solid rgba(255,255,255,0.15);
+            color: rgba(255,255,255,0.7); background: transparent; cursor: pointer;
+            margin: 2px; transition: all 0.2s ease; font-family: 'DM Sans', sans-serif;
+        }
+        .orbital-card-link-btn:hover { background: rgba(255,255,255,0.1); color: #fff; }
+
+        @media (max-width: 768px) {
+            .orbital-timeline-container { height: 500px; }
+            .orbital-orbit-ring { width: 280px; height: 280px; }
+            .orbital-card { width: 220px; font-size: 11px; }
         }
 
 
@@ -2025,18 +2071,12 @@
             <div class="container">
                 <a href="#" class="logo serif">ANSH KHABIYA</a>
                 <div class="nav-links-wrapper desktop-only">
-                    <div class="gooey-nav-container" id="gooeyNav">
-                        <nav>
-                            <ul>
-                                <li><a href="#about">About</a></li>
-                                <li><a href="#projects">Work</a></li>
-                                <li><a href="#contact">Contact</a></li>
-                                <li><a href="#cv">CV</a></li>
-                            </ul>
-                        </nav>
-                        <span class="effect filter"></span>
-                        <span class="effect text"></span>
-                    </div>
+                    <ul>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#projects" class="active">Work</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                        <li><a href="#cv">CV</a></li>
+                    </ul>
                 </div>
                 <div class="nav-right">
                     <a href="#" class="admin-pill desktop-only" id="openAdmin">Admin ↗</a>
@@ -2177,28 +2217,28 @@
             </section>
 
             <section id="projects" style="padding: 100px 0 0 0; margin-bottom: 0;">
-
                 <div class="container">
-                    <div class="projects-flex-wrapper">
-                        <div class="projects-header">
-                            <h2>Selected Work</h2>
-                            <p class="projects-intro">
-                                A curated selection of my recent projects. Scroll or drag to explore.
-                            </p>
+                    <div class="projects-header" style="margin-bottom: 40px;">
+                        <h2>Selected Work</h2>
+                        <p class="projects-intro">
+                            A curated selection of my recent projects. Swipe or click to explore.
+                        </p>
+                    </div>
 
-                        </div>
-
-                        <!-- Circular Gallery Container -->
-                        <div id="projectsGallery" class="circular-gallery"></div>
+                    <!-- 3D Card Stack Integration -->
+                    <div class="work-showcase-container" style="width: 100%; position: relative; overflow: hidden; border-radius: 24px;">
+                        <iframe src="work-showcase/index.html" style="width: 100%; height: 600px; border: none; background: transparent; display: block;" id="work-iframe" scrolling="no"></iframe>
                     </div>
                 </div>
-
             </section>
 
             <section id="contact">
                 <div class="container">
                     <div class="contact-left">
-                        <h2>Let's Connect.</h2>
+                        <!-- Animated Letter Text Integration -->
+                        <div style="width: 100%; height: 100px; margin-bottom: 20px;">
+                            <iframe src="work-showcase/index.html?mode=contact" style="width: 100%; height: 100%; border: none; background: transparent; display: block; overflow: hidden;" scrolling="no"></iframe>
+                        </div>
                         <form class="contact-form" id="contactForm">
                             <div class="form-group">
                                 <input type="text" id="contactName" name="name" placeholder="Your Name" required>
@@ -2210,7 +2250,7 @@
                                 <textarea id="contactMessage" name="message" placeholder="Your Message" rows="4"
                                     required></textarea>
                             </div>
-                            <button type="submit" class="submit-btn">Send Message</button>
+                            <button type="submit" class="submit-btn pulse-button">Send Message</button>
                         </form>
                     </div>
                     <div class="contact-right">
@@ -2600,406 +2640,16 @@
             }
         ];
 
-        // --- CIRCULAR GALLERY OGL CLASSES ---
-        const { Camera: OGLCamera, Mesh: OGLMesh, Plane: OGLPlane, Program: OGLProgram, Renderer: OGLRenderer, Texture: OGLTexture, Transform: OGLTransform } = ogl;
-
-        function debounce(func, wait) {
-            let timeout;
-            return function (...args) {
-                window.clearTimeout(timeout);
-                timeout = window.setTimeout(() => func.apply(this, args), wait);
-            };
-        }
-
-        function lerp(p1, p2, t) {
-            return p1 + (p2 - p1) * t;
-        }
-
-        function createTextTexture(gl, text, font = 'bold 30px Figtree', color = 'black') {
-            const canvas = document.createElement('canvas');
-            const context = canvas.getContext('2d');
-            context.font = font;
-            const metrics = context.measureText(text);
-            const textWidth = Math.ceil(metrics.width);
-            const fontSize = parseInt(font.match(/(\d+)px/)[1], 10) || 30;
-            const textHeight = Math.ceil(fontSize * 1.2);
-
-            canvas.width = textWidth + 40;
-            canvas.height = textHeight + 40;
-
-            context.font = font;
-            context.fillStyle = color;
-            context.textBaseline = 'middle';
-            context.textAlign = 'center';
-            context.clearRect(0, 0, canvas.width, canvas.height);
-            context.fillText(text, canvas.width / 2, canvas.height / 2);
-
-            const texture = new OGLTexture(gl, { generateMipmaps: false });
-            texture.image = canvas;
-            return { texture, width: canvas.width, height: canvas.height };
-        }
-
-        class Title {
-            constructor({ gl, plane, renderer, text, textColor = '#1a1a1a', font = 'bold 30px Figtree' }) {
-                this.gl = gl;
-                this.plane = plane;
-                this.renderer = renderer;
-                this.text = text;
-                this.textColor = textColor;
-                this.font = font;
-                this.createMesh();
-            }
-
-            createMesh() {
-                const { texture, width, height } = createTextTexture(this.gl, this.text, this.font, this.textColor);
-                const geometry = new OGLPlane(this.gl);
-                const program = new OGLProgram(this.gl, {
-                    vertex: `
-                        attribute vec3 position;
-                        attribute vec2 uv;
-                        uniform mat4 modelViewMatrix;
-                        uniform mat4 projectionMatrix;
-                        varying vec2 vUv;
-                        void main() {
-                            vUv = uv;
-                            gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
-                        }
-                    `,
-                    fragment: `
-                        precision highp float;
-                        uniform sampler2D tMap;
-                        varying vec2 vUv;
-                        void main() {
-                            vec4 color = texture2D(tMap, vUv);
-                            if (color.a < 0.1) discard;
-                            gl_FragColor = color;
-                        }
-                    `,
-                    uniforms: { tMap: { value: texture } },
-                    transparent: true
-                });
-                this.mesh = new OGLMesh(this.gl, { geometry, program });
-                const aspect = width / height;
-                const textHeightScaled = this.plane.scale.y * 0.12;
-                const textWidthScaled = textHeightScaled * aspect;
-                this.mesh.scale.set(textWidthScaled, textHeightScaled, 1);
-                this.mesh.position.y = -this.plane.scale.y * 0.5 - textHeightScaled * 0.7;
-                this.mesh.setParent(this.plane);
-            }
-        }
-
-        class Media {
-            constructor({ geometry, gl, image, index, length, renderer, scene, screen, text, viewport, bend, textColor, borderRadius, font, projectData }) {
-                this.extra = 0;
-                this.geometry = geometry;
-                this.gl = gl;
-                this.image = image;
-                this.index = index;
-                this.length = length;
-                this.renderer = renderer;
-                this.scene = scene;
-                this.screen = screen;
-                this.text = text;
-                this.viewport = viewport;
-                this.bend = bend;
-                this.textColor = textColor;
-                this.borderRadius = borderRadius;
-                this.font = font;
-                this.projectData = projectData;
-                this.createShader();
-                this.createMesh();
-                this.createTitle();
-                this.onResize();
-            }
-
-            createShader() {
-                const texture = new OGLTexture(this.gl, { generateMipmaps: true });
-                this.program = new OGLProgram(this.gl, {
-                    depthTest: false,
-                    depthWrite: false,
-                    vertex: `
-                        precision highp float;
-                        attribute vec3 position;
-                        attribute vec2 uv;
-                        uniform mat4 modelViewMatrix;
-                        uniform mat4 projectionMatrix;
-                        uniform float uTime;
-                        uniform float uSpeed;
-                        varying vec2 vUv;
-                        void main() {
-                            vUv = uv;
-                            vec3 p = position;
-                            p.z = (sin(p.x * 4.0 + uTime) * 1.5 + cos(p.y * 2.0 + uTime) * 1.5) * (0.1 + abs(uSpeed) * 0.5);
-                            gl_Position = projectionMatrix * modelViewMatrix * vec4(p, 1.0);
-                        }
-                    `,
-                    fragment: `
-                        precision highp float;
-                        uniform vec2 uImageSizes;
-                        uniform vec2 uPlaneSizes;
-                        uniform sampler2D tMap;
-                        uniform float uBorderRadius;
-                        varying vec2 vUv;
-                        
-                        float roundedBoxSDF(vec2 p, vec2 b, float r) {
-                            vec2 d = abs(p) - b;
-                            return length(max(d, vec2(0.0))) + min(max(d.x, d.y), 0.0) - r;
-                        }
-                        
-                        void main() {
-                            vec2 ratio = vec2(
-                                min((uPlaneSizes.x / uPlaneSizes.y) / (uImageSizes.x / uImageSizes.y), 1.0),
-                                min((uPlaneSizes.y / uPlaneSizes.x) / (uImageSizes.y / uImageSizes.x), 1.0)
-                            );
-                            vec2 uv = vec2(
-                                vUv.x * ratio.x + (1.0 - ratio.x) * 0.5,
-                                vUv.y * ratio.y + (1.0 - ratio.y) * 0.5
-                            );
-                            vec4 color = texture2D(tMap, uv);
-                            float d = roundedBoxSDF(vUv - 0.5, vec2(0.5 - uBorderRadius), uBorderRadius);
-                            float edgeSmooth = 0.002;
-                            float alpha = 1.0 - smoothstep(-edgeSmooth, edgeSmooth, d);
-                            gl_FragColor = vec4(color.rgb, alpha);
-                        }
-                    `,
-                    uniforms: {
-                        tMap: { value: texture },
-                        uPlaneSizes: { value: [0, 0] },
-                        uImageSizes: { value: [0, 0] },
-                        uSpeed: { value: 0 },
-                        uTime: { value: 100 * Math.random() },
-                        uBorderRadius: { value: this.borderRadius }
-                    },
-                    transparent: true
-                });
-                const img = new Image();
-                img.crossOrigin = 'anonymous';
-                img.src = this.image;
-                img.onload = () => {
-                    texture.image = img;
-                    this.program.uniforms.uImageSizes.value = [img.naturalWidth, img.naturalHeight];
-                };
-            }
-
-            createMesh() {
-                this.plane = new OGLMesh(this.gl, { geometry: this.geometry, program: this.program });
-                this.plane.setParent(this.scene);
-                // Tag for raycasting
-                this.plane.projectData = this.projectData;
-            }
-
-            createTitle() {
-                this.title = new Title({ gl: this.gl, plane: this.plane, renderer: this.renderer, text: this.text, textColor: this.textColor, font: this.font });
-            }
-
-            update(scroll, direction) {
-                this.plane.position.x = this.x - scroll.current - this.extra;
-                const x = this.plane.position.x;
-                const H = this.viewport.width / 2;
-                if (this.bend !== 0) {
-                    const B_abs = Math.abs(this.bend);
-                    const R = (H * H + B_abs * B_abs) / (2 * B_abs);
-                    const effectiveX = Math.min(Math.abs(x), H);
-                    const arc = R - Math.sqrt(R * R - effectiveX * effectiveX);
-                    if (this.bend > 0) {
-                        this.plane.position.y = -arc;
-                        this.plane.rotation.z = -Math.sign(x) * Math.asin(effectiveX / R);
-                    } else {
-                        this.plane.position.y = arc;
-                        this.plane.rotation.z = Math.sign(x) * Math.asin(effectiveX / R);
-                    }
-                }
-                this.program.uniforms.uTime.value += 0.04;
-                this.program.uniforms.uSpeed.value = scroll.current - scroll.last;
-                const planeOffset = this.plane.scale.x / 2;
-                const viewportOffset = this.viewport.width / 2;
-                this.isBefore = this.plane.position.x + planeOffset < -viewportOffset;
-                this.isAfter = this.plane.position.x - planeOffset > viewportOffset;
-                if (direction === 'right' && this.isBefore) {
-                    this.extra -= this.widthTotal;
-                    this.isBefore = this.isAfter = false;
-                }
-                if (direction === 'left' && this.isAfter) {
-                    this.extra += this.widthTotal;
-                    this.isBefore = this.isAfter = false;
-                }
-            }
-
-            onResize({ screen, viewport } = {}) {
-                if (screen) this.screen = screen;
-                if (viewport) this.viewport = viewport;
-                const scaleFactor = this.screen.width < 768 ? 0.6 : 1.0;
-                this.scale = (this.screen.height / 1500) * scaleFactor;
-                this.plane.scale.y = (this.viewport.height * (800 * this.scale)) / this.screen.height;
-                this.plane.scale.x = (this.viewport.width * (600 * this.scale)) / this.screen.width;
-                this.program.uniforms.uPlaneSizes.value = [this.plane.scale.x, this.plane.scale.y];
-                this.padding = 1.5;
-                this.width = this.plane.scale.x + this.padding;
-                this.widthTotal = this.width * this.length;
-                this.x = this.width * this.index;
-            }
-        }
-
-        class CircularGalleryApp {
-            constructor(container, { items, bend = 3, textColor = '#1a1a1a', borderRadius = 0.05, font = 'bold 30px Figtree', scrollSpeed = 2, scrollEase = 0.05 }) {
-                this.container = container;
-                this.scrollSpeed = scrollSpeed;
-                this.scroll = { ease: scrollEase, current: 0, target: 0, last: 0 };
-                this.onCheckDebounce = debounce(this.onCheck.bind(this), 200);
-                this.medias = [];
-                this.isDown = false;
-                this.start = 0;
-                this.createRenderer();
-                this.createCamera();
-                this.createScene();
-                this.onResize();
-                this.createGeometry();
-                this.createMedias(items, bend, textColor, borderRadius, font);
-                this.update();
-                this.addEventListeners();
-            }
-
-            createRenderer() {
-                this.renderer = new OGLRenderer({ alpha: true, antialias: true, dpr: Math.min(window.devicePixelRatio || 1, 2) });
-                this.gl = this.renderer.gl;
-                this.container.appendChild(this.gl.canvas);
-            }
-
-            createCamera() {
-                this.camera = new OGLCamera(this.gl);
-                this.camera.fov = 45;
-                this.camera.position.z = 20;
-            }
-
-            createScene() { this.scene = new OGLTransform(); }
-
-            createGeometry() { this.planeGeometry = new OGLPlane(this.gl, { heightSegments: 50, widthSegments: 100 }); }
-
-            createMedias(items, bend, textColor, borderRadius, font) {
-                const galleryItems = items.concat(items).concat(items); // Triple for infinite scroll buffer
-                this.medias = galleryItems.map((data, index) => new Media({
-                    geometry: this.planeGeometry, gl: this.gl, image: data.image || `https://picsum.photos/seed/${index}/800/600`, index, length: galleryItems.length,
-                    renderer: this.renderer, scene: this.scene, screen: this.screen, text: data.title, viewport: this.viewport, bend, textColor, borderRadius, font, projectData: data
-                }));
-            }
-
-            onTouchDown(e) {
-                this.isDown = true;
-                this.scroll.position = this.scroll.current;
-                this.start = e.touches ? e.touches[0].clientX : e.clientX;
-                this.startTime = Date.now();
-                this.startPos = { x: this.start, y: e.touches ? e.touches[0].clientY : e.clientY };
-            }
-
-            onTouchMove(e) {
-                if (!this.isDown) return;
-                const x = e.touches ? e.touches[0].clientX : e.clientX;
-                const distance = (this.start - x) * (this.scrollSpeed * 0.025);
-                this.scroll.target = (this.scroll.position || 0) + distance;
-            }
-
-            onTouchUp(e) {
-                if (!this.isDown) return;
-                this.isDown = false;
-                const endX = e.changedTouches ? e.changedTouches[0].clientX : e.clientX;
-                const endY = e.changedTouches ? e.changedTouches[0].clientY : e.clientY;
-                const duration = Date.now() - this.startTime;
-                const dist = Math.sqrt(Math.pow(endX - this.startPos.x, 2) + Math.pow(endY - this.startPos.y, 2));
-
-                if (duration < 250 && dist < 10) { this.onClick(endX, endY); }
-                this.onCheck();
-            }
-
-            onClick(x, y) {
-                const rect = this.gl.canvas.getBoundingClientRect();
-                const mouse = {
-                    x: ((x - rect.left) / rect.width) * 2 - 1,
-                    y: -((y - rect.top) / rect.height) * 2 + 1
-                };
-                // Minimal raycasting for OGL
-                const raycaster = { origin: [this.camera.position.x, this.camera.position.y, this.camera.position.z], direction: [mouse.x, mouse.y, -1] };
-                // Simplification for hit detection based on plane positions
-                let closest = null;
-                let minDist = Infinity;
-
-                this.medias.forEach(m => {
-                    const planePos = m.plane.position;
-                    // Project mouse to world coords at z=0 approx
-                    const worldX = mouse.x * this.viewport.width / 2;
-                    const dist = Math.abs(planePos.x - worldX);
-                    if (dist < m.plane.scale.x / 2 && dist < minDist) {
-                        minDist = dist;
-                        closest = m;
-                    }
-                });
-
-                if (closest) openProjectModal(closest.projectData);
-            }
-
-            onWheel(e) {
-                const delta = e.deltaY || e.detail;
-                this.scroll.target += (delta > 0 ? this.scrollSpeed : -this.scrollSpeed) * 0.5;
-                this.onCheckDebounce();
-            }
-
-            onCheck() {
-                if (!this.medias[0]) return;
-                const width = this.medias[0].width;
-                const itemIndex = Math.round(Math.abs(this.scroll.target) / width);
-                this.scroll.target = (this.scroll.target < 0 ? -1 : 1) * width * itemIndex;
-            }
-
-            onResize() {
-                this.screen = { width: this.container.clientWidth, height: this.container.clientHeight };
-                this.renderer.setSize(this.screen.width, this.screen.height);
-                this.camera.perspective({ aspect: this.screen.width / this.screen.height });
-                const fov = (this.camera.fov * Math.PI) / 180;
-                const height = 2 * Math.tan(fov / 2) * this.camera.position.z;
-                this.viewport = { width: height * this.camera.aspect, height };
-                if (this.medias) this.medias.forEach(m => m.onResize({ screen: this.screen, viewport: this.viewport }));
-            }
-
-            update() {
-                this.scroll.current = lerp(this.scroll.current, this.scroll.target, this.scroll.ease);
-                const direction = this.scroll.current > this.scroll.last ? 'right' : 'left';
-                if (this.medias) this.medias.forEach(m => m.update(this.scroll, direction));
-                this.renderer.render({ scene: this.scene, camera: this.camera });
-                this.scroll.last = this.scroll.current;
-                this.raf = window.requestAnimationFrame(this.update.bind(this));
-            }
-
-            addEventListeners() {
-                window.addEventListener('resize', this.onResize.bind(this));
-                this.gl.canvas.addEventListener('wheel', this.onWheel.bind(this), { passive: true });
-                this.gl.canvas.addEventListener('mousedown', this.onTouchDown.bind(this));
-                window.addEventListener('mousemove', this.onTouchMove.bind(this));
-                window.addEventListener('mouseup', this.onTouchUp.bind(this));
-                this.gl.canvas.addEventListener('touchstart', this.onTouchDown.bind(this), { passive: true });
-                window.addEventListener('touchmove', this.onTouchMove.bind(this), { passive: true });
-                window.addEventListener('touchend', this.onTouchUp.bind(this));
-            }
-
-            destroy() {
-                window.cancelAnimationFrame(this.raf);
-                if (this.gl.canvas.parentNode) this.gl.canvas.parentNode.removeChild(this.gl.canvas);
-            }
+        // --- RADIAL ORBITAL TIMELINE LOGIC ---
+        function initOrbitalTimeline() {
+            return { destroy: () => {} };
         }
 
         let galleryInstance = null;
 
         // --- INITIALIZE PROJECTS ---
         async function fetchProjects() {
-            const container = document.getElementById('projectsGallery');
-            if (galleryInstance) galleryInstance.destroy();
-
-            galleryInstance = new CircularGalleryApp(container, {
-                items: FEATURED_PROJECTS,
-                bend: 1.5,
-                textColor: '#1a1a1a',
-                borderRadius: 0.04,
-                font: 'bold 36px Figtree',
-                scrollEase: window.innerWidth < 768 ? 0.12 : 0.08
-            });
+            // New integration uses an iframe, so no JS initialization needed here.
         }
 
         function openProjectModal(proj) {
@@ -3571,151 +3221,6 @@
             initLightRays();
         });
     </script>
-    <!-- SVG Filter for Gooey Navigation -->
-    <svg xmlns="http://www.w3.org/2000/svg" version="1.1" style="display: none;">
-        <defs>
-            <filter id="goo">
-                <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur" />
-                <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 19 -9"
-                    result="goo" />
-                <feComposite in="SourceGraphic" in2="goo" operator="atop" />
-            </filter>
-        </defs>
-    </svg>
-    <script>
-        // --- GOOEY NAVIGATION LOGIC ---
-        (function initGooeyNav() {
-            const container = document.getElementById('gooeyNav');
-            if (!container) return;
-
-            const filterRef = container.querySelector('.effect.filter');
-            const textRef = container.querySelector('.effect.text');
-            const nav = container.querySelector('nav ul');
-            const navLinks = nav.querySelectorAll('a');
-
-            let activeIndex = 0;
-            const animationTime = 600;
-            const particleCount = 15;
-            const particleDistances = [90, 10];
-            const particleR = 100;
-            const timeVariance = 300;
-            const colors = [1, 2, 3, 1, 2, 3, 1, 4];
-
-            const noise = (n = 1) => n / 2 - Math.random() * n;
-
-            const getXY = (distance, pointIndex, totalPoints) => {
-                const angle = ((360 + noise(8)) / totalPoints) * pointIndex * (Math.PI / 180);
-                return [distance * Math.cos(angle), distance * Math.sin(angle)];
-            };
-
-            const createParticle = (i, t, d, r) => {
-                let rotate = noise(r / 10);
-                return {
-                    start: getXY(d[0], particleCount - i, particleCount),
-                    end: getXY(d[1] + noise(7), particleCount - i, particleCount),
-                    time: t,
-                    scale: 1 + noise(0.2),
-                    color: colors[Math.floor(Math.random() * colors.length)],
-                    rotate: rotate > 0 ? (rotate + r / 20) * 10 : (rotate - r / 20) * 10
-                };
-            };
-
-            const makeParticles = (element) => {
-                const d = particleDistances;
-                const r = particleR;
-                const bubbleTime = animationTime * 2 + timeVariance;
-                element.style.setProperty('--time', `${bubbleTime}ms`);
-
-                for (let i = 0; i < particleCount; i++) {
-                    const t = animationTime * 2 + noise(timeVariance * 2);
-                    const p = createParticle(i, t, d, r);
-
-                    setTimeout(() => {
-                        const particle = document.createElement('span');
-                        const point = document.createElement('span');
-                        particle.classList.add('particle');
-                        particle.style.setProperty('--start-x', `${p.start[0]}px`);
-                        particle.style.setProperty('--start-y', `${p.start[1]}px`);
-                        particle.style.setProperty('--end-x', `${p.end[0]}px`);
-                        particle.style.setProperty('--end-y', `${p.end[1]}px`);
-                        particle.style.setProperty('--time', `${p.time}ms`);
-                        particle.style.setProperty('--scale', `${p.scale}`);
-                        particle.style.setProperty('--color', `var(--color-${p.color}, #555)`);
-                        particle.style.setProperty('--rotate', `${p.rotate}deg`);
-
-                        point.classList.add('point');
-                        particle.appendChild(point);
-                        element.appendChild(particle);
-
-                        setTimeout(() => {
-                            particle.classList.add('active');
-                        }, 10);
-
-                        setTimeout(() => {
-                            try { element.removeChild(particle); } catch (e) { }
-                        }, t);
-                    }, 30);
-                }
-            };
-
-            const updateEffectPosition = (element) => {
-                const containerRect = container.getBoundingClientRect();
-                const pos = element.getBoundingClientRect();
-
-                const styles = {
-                    left: `${pos.x - containerRect.x}px`,
-                    top: `${pos.y - containerRect.y}px`,
-                    width: `${pos.width}px`,
-                    height: `${pos.height}px`
-                };
-                Object.assign(filterRef.style, styles);
-                Object.assign(textRef.style, styles);
-                textRef.innerText = element.innerText;
-            };
-
-            navLinks.forEach((link, index) => {
-                link.addEventListener('click', (e) => {
-                    // Smooth scroll is handled by CSS/browser
-                    if (activeIndex === index) return;
-
-                    activeIndex = index;
-                    updateEffectPosition(link);
-
-                    // Clear existing particles
-                    filterRef.querySelectorAll('.particle').forEach(p => {
-                        try { filterRef.removeChild(p); } catch (e) { }
-                    });
-
-                    textRef.classList.remove('active');
-                    void textRef.offsetWidth; // Trigger reflow
-                    textRef.classList.add('active');
-
-                    makeParticles(filterRef);
-                    filterRef.classList.add('active');
-                });
-            });
-
-            // Handle Resize
-            const resizeObserver = new ResizeObserver(() => {
-                const activeLink = navLinks[activeIndex];
-                if (activeLink) {
-                    updateEffectPosition(activeLink);
-                }
-            });
-            resizeObserver.observe(container);
-
-            // Initial position
-            const initPosition = () => {
-                setTimeout(() => {
-                    updateEffectPosition(navLinks[0]);
-                    textRef.classList.add('active');
-                    container.classList.add('initialized');
-                }, 500); // Wait for fonts/layout
-            };
-
-            if (document.readyState === 'complete') initPosition();
-            else window.addEventListener('load', initPosition);
-        })();
     </script>
 </body>
 
