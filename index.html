@@ -2095,12 +2095,9 @@
             <div class="container">
                 <a href="#" class="logo serif">ANSH KHABIYA</a>
                 <div class="nav-links-wrapper desktop-only">
-                    <ul>
-                        <li><a href="#about">About</a></li>
-                        <li><a href="#projects" class="active">Work</a></li>
-                        <li><a href="#contact">Contact</a></li>
-                        <li><a href="#cv">CV</a></li>
-                    </ul>
+                    <iframe src="work-showcase/?mode=nav" 
+                            style="width: 320px; height: 80px; border: none; background: transparent; overflow: hidden; display: block;" 
+                            scrolling="no"></iframe>
                 </div>
                 <div class="nav-right">
                     <a href="#" class="admin-pill desktop-only" id="openAdmin">Admin ↗</a>
@@ -2345,6 +2342,17 @@
                     mobileOverlay.classList.remove('active');
                     document.body.classList.remove('menu-active');
                 });
+            });
+
+            // Handle section scrolling from LimelightNav
+            window.addEventListener('message', (event) => {
+                if (event.data.type === 'scroll-to') {
+                    const targetId = event.data.target;
+                    const element = document.getElementById(targetId);
+                    if (element) {
+                        element.scrollIntoView({ behavior: 'smooth' });
+                    }
+                }
             });
         </script>
 
