@@ -1,16 +1,20 @@
 import { useEffect, useState } from 'react'
 import { CardStackDemo } from './components/demo/card-stack-demo'
 import { AnimatedLetterText } from './components/ui/potfolio-text'
+import { LampContainer } from './components/ui/lamp'
+import { motion } from 'framer-motion'
 import './App.css'
 
 function App() {
-  const [mode, setMode] = useState<'gallery' | 'contact'>('gallery')
+  const [mode, setMode] = useState<'gallery' | 'contact' | 'lamp'>('gallery')
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search)
     const m = params.get('mode')
     if (m === 'contact') {
       setMode('contact')
+    } else if (m === 'lamp') {
+        setMode('lamp')
     } else {
       setMode('gallery')
     }
@@ -25,6 +29,25 @@ function App() {
           className="text-6xl md:text-8xl text-[#F7F5F0]" 
         />
       </div>
+    )
+  }
+
+  if (mode === 'lamp') {
+    return (
+        <LampContainer className="bg-transparent min-h-screen">
+          <motion.div
+            initial={{ opacity: 0, y: 100 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{
+              delay: 0.3,
+              duration: 0.8,
+              ease: "easeInOut",
+            }}
+            className="text-center"
+          >
+            {/* The content will be rendered by the main page or we can keep it empty if we just want the light effect */}
+          </motion.div>
+        </LampContainer>
     )
   }
 

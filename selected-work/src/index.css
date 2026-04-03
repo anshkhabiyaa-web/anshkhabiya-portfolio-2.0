@@ -10,6 +10,10 @@
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
   }
+
+  /* Conic gradient support */
+  --image-gradient-conic-cyan: conic-gradient(from 70deg at center top, var(--color-cyan-500), transparent, transparent);
+  --image-gradient-conic-cyan-rev: conic-gradient(from 290deg at center top, transparent, transparent, var(--color-cyan-500));
 }
 
 :root {
@@ -39,4 +43,9 @@ body {
 
 .animate-diamond-rotate {
   animation: diamond-rotate 8s linear infinite;
+}
+
+/* Custom Conic helper classes if Tailwind 4 doesn't handle bg-gradient-conic automatically */
+.bg-gradient-conic {
+  background-image: conic-gradient(var(--conic-position, from 0deg at center), var(--tw-gradient-stops));
 }
