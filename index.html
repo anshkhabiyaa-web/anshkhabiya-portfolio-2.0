@@ -19,7 +19,7 @@
 
     <style>
         :root {
-            --bg-color: #0F0F0D;
+            --bg-color: #F7F5F0;
             --text-color: #0F0F0D;
             --accent-color: #555;
             --accent-rgb: 85, 85, 85;
@@ -46,7 +46,7 @@
         }
 
         body {
-            background-color: var(--bg-color);
+            background-color: #0F0F0D; /* Set initial background to dark to avoid white flash */
             color: var(--text-color);
             font-family: 'DM Sans', sans-serif;
             line-height: 1.6;
@@ -232,7 +232,7 @@
         /* --- Hero --- */
         #hero {
             position: relative;
-            background: #0F0F0D;
+            background: transparent !important;
             color: #F7F5F0;
             padding: 80px 0;
             overflow: visible;
