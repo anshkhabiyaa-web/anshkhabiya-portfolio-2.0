@@ -2925,10 +2925,9 @@
             submitBtn.disabled = true;
             submitBtn.textContent = 'Sending...';
 
-            // Send to Zapier using fetch
+            // Send to Zapier using fetch (bypassing CORS preflight by omitting custom content-type)
             fetch('https://hooks.zapier.com/hooks/catch/26840731/un7vnwx/', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ name, email, message })
             })
             .then(() => {
