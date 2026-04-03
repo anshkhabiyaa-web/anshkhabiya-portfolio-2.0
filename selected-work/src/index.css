@@ -1,10 +1,10 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=DM+Serif+Display&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700;900&display=swap');
 @import "tailwindcss";
 
 @theme {
   --font-sans: "DM Sans", ui-sans-serif, system-ui, sans-serif;
-  --font-serif: "DM Serif Display", serif;
   --color-foreground: oklch(0.15 0 0);
+  --color-destructive-foreground: var(--destructive-foreground);
   
   @keyframes diamond-rotate {
     0% { transform: rotate(0deg); }
@@ -14,12 +14,27 @@
 
 :root {
   --foreground: oklch(0.15 0 0);
+  --destructive-foreground: oklch(0.577 0.245 27.325);
+}
+
+.dark {
+  --card: oklch(0.145 0 0);
+  --popover: oklch(0.145 0 0);
+  --primary: oklch(0.985 0 0);
+  --destructive: oklch(0.396 0.141 25.723);
+  --destructive-foreground: oklch(0.637 0.237 25.331);
+  --border: oklch(0.269 0 0);
+  --input: oklch(0.269 0 0);
+  --ring: oklch(0.439 0 0);
+  --sidebar-border: oklch(0.269 0 0);
+  --sidebar-ring: oklch(0.439 0 0);
 }
 
 body {
   background: transparent !important;
   margin: 0;
   overflow: hidden;
+  font-family: 'DM Sans', sans-serif;
 }
 
 .animate-diamond-rotate {

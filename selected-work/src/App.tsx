@@ -18,11 +18,11 @@ function App() {
 
   if (mode === 'contact') {
     return (
-      <div className="w-full min-h-screen flex items-center justify-center bg-transparent">
+      <div className="w-full h-full flex items-center justify-center bg-transparent">
         <AnimatedLetterText 
           text="Let's Connect." 
           letterToReplace="o" 
-          className="text-4xl md:text-6xl text-[#0F0F0D] font-serif" 
+          className="text-4xl md:text-6xl text-[#F7F5F0]" 
         />
       </div>
     )
