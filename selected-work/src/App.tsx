@@ -24,7 +24,7 @@ function App() {
         <AnimatedLetterText 
           text="Let's Connect." 
           letterToReplace="o" 
-          className="text-6xl md:text-8xl text-[#F7F5F0]" 
+          className="text-6xl md:text-8xl text-[#0F0F0D]" 
         />
       </div>
     )
