@@ -1,22 +1,31 @@
 import { useEffect, useState } from 'react'
 import { CardStackDemo } from './components/demo/card-stack-demo'
-import { PulseBeamsFirstDemo } from './components/demo/pulse-beams-demo'
+import { PulseBeamsFirstDemo, PulseBeamsNavButton } from './components/demo/pulse-beams-demo'
 import { AnimatedLetterText } from './components/ui/potfolio-text'
 import { LampContainer } from './components/ui/lamp'
 import './App.css'
 
 function App() {
-  const [mode] = useState<'gallery' | 'contact' | 'lamp'>(() => {
+  const [mode] = useState<'gallery' | 'contact' | 'lamp' | 'nav-button'>(() => {
     const params = new URLSearchParams(window.location.search)
     const m = params.get('mode')
     if (m === 'contact') return 'contact';
     if (m === 'lamp') return 'lamp';
+    if (m === 'nav-button') return 'nav-button';
     return 'gallery';
   });
 
   useEffect(() => {
     // keeping listener if needed, but not strictly required if query params don't change
   }, [])
+
+  if (mode === 'nav-button') {
+    return (
+      <div className="w-full h-full flex items-center justify-center bg-transparent">
+        <PulseBeamsNavButton />
+      </div>
+    )
+  }
 
   if (mode === 'contact') {
     return (
