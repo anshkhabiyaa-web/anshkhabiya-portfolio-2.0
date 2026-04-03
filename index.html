@@ -111,7 +111,7 @@
             }
         }
 
-        nav {
+        #siteContent nav {
             position: fixed;
             top: 0;
             left: 0;
@@ -127,7 +127,7 @@
             align-items: center;
         }
 
-        nav .container {
+        #siteContent nav .container {
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -1301,6 +1301,12 @@
             cursor: pointer;
             font-weight: 500;
             transition: 0.2s;
+        }
+
+        .admin-nav-item.active {
+            opacity: 1;
+            background: #F9F9F9;
+            border-right: 4px solid black;
         }
 
         .admin-nav-item.view-site-special {
