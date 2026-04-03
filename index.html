@@ -2925,29 +2925,24 @@
             submitBtn.disabled = true;
             submitBtn.textContent = 'Sending...';
 
-            // Send to Zapier using XMLHttpRequest (most reliable cross-origin method)
-            const xhr = new XMLHttpRequest();
-            xhr.open('POST', 'https://hooks.zapier.com/hooks/catch/26840731/un7vnwx/', true);
-            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-
-            xhr.onload = function () {
+            // Send to Zapier using fetch
+            fetch('https://hooks.zapier.com/hooks/catch/26840731/un7vnwx/', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ name, email, message })
+            })
+            .then(() => {
                 alert('Message sent! I will get back to you soon.');
                 form.reset();
-                submitBtn.disabled = false;
-                submitBtn.textContent = originalBtnText;
-            };
-
-            xhr.onerror = function () {
-                // Zapier receives the data even if CORS blocks the response
+            })
+            .catch(() => {
                 alert('Message sent! I will get back to you soon.');
                 form.reset();
+            })
+            .finally(() => {
                 submitBtn.disabled = false;
                 submitBtn.textContent = originalBtnText;
-            };
-
-            // URL-encode the data
-            const data = 'name=' + encodeURIComponent(name) + '&email=' + encodeURIComponent(email) + '&message=' + encodeURIComponent(message);
-            xhr.send(data);
+            });
         });
 
         // --- RESUME DOWNLOAD ---
