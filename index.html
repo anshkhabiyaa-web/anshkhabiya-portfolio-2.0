@@ -1255,11 +1255,11 @@
             background: #F4F4F4;
             z-index: 3000;
             display: none;
-            grid-template-columns: 280px 1fr;
+            flex-direction: column;
         }
 
         #adminPanel.active {
-            display: grid;
+            display: flex;
             animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
@@ -1327,17 +1327,39 @@
             display: flex;
             flex-direction: column;
             overflow: hidden;
+            flex: 1;
         }
 
         .admin-header {
-            height: 90px;
+            height: 80px;
             background: white;
-            border-bottom: 1px solid #eee;
+            border-bottom: 1px solid var(--border-color);
             padding: 0 40px;
             display: flex;
             align-items: center;
-            justify-content: flex-end;
-            gap: 20px;
+            justify-content: space-between;
+        }
+
+        .admin-nav-horizontal {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            height: 100%;
+        }
+
+        .admin-nav-horizontal .admin-nav-item {
+            padding: 0;
+            height: 100%;
+            border-right: none;
+            border-bottom: 2px solid transparent;
+            border-radius: 0;
+            opacity: 0.6;
+        }
+
+        .admin-nav-horizontal .admin-nav-item.active {
+            opacity: 1;
+            background: transparent;
+            border-bottom: 2px solid #000;
         }
 
         .exit-btn {
@@ -2419,30 +2441,26 @@
 
         <!-- Admin Panel Full Screen -->
         <div id="adminPanel">
-            <aside class="admin-sidebar">
-                <div class="logo serif">ANSH KHABIYA</div>
-                <nav class="admin-nav">
-                    <div class="admin-nav-item active" data-tab="dashboard">Dashboard</div>
-                    <div class="admin-nav-item" data-tab="profile">Profile</div>
-                    <div class="admin-nav-item" data-tab="projects-tab">Projects</div>
-                    <div class="admin-nav-item" data-tab="settings">Settings</div>
-                    <div class="admin-nav-item view-site-special" id="viewSiteSidebar">
-                        <span>Return to Website</span>
-                        <span style="font-size: 14px;">↗</span>
-                    </div>
-                </nav>
-            </aside>
-
             <main class="admin-main">
                 <header class="admin-header">
-                    <div class="user-pill desktop-only">
-                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1974&auto=format&fit=crop"
-                            alt="User">
-                        <span>Ansh Chauhan</span>
+                    <!-- Logo on left -->
+                    <div class="logo serif desktop-only" style="font-size: 24px; font-weight: 500;">
+                        ANSH KHABIYA
                     </div>
-                    <button class="view-site-btn" id="viewSite" style="background: #2563EB;">Return to Website ↗</button>
-                    <button class="exit-btn" id="exitAdmin">Exit Admin</button>
-                    <button class="logout-btn" id="logoutBtn">Logout</button>
+
+                    <!-- Navigation in center -->
+                    <nav class="admin-nav-horizontal desktop-only">
+                        <div class="admin-nav-item active" data-tab="dashboard">Dashboard</div>
+                        <div class="admin-nav-item" data-tab="profile">Profile</div>
+                        <div class="admin-nav-item" data-tab="projects-tab">Projects</div>
+                        <div class="admin-nav-item" data-tab="settings">Settings</div>
+                    </nav>
+
+                    <!-- Buttons on right -->
+                    <div style="display: flex; gap: 15px; align-items: center;">
+                        <button class="view-site-btn" id="viewSite" style="background: #2563EB;">Return to Website ↗</button>
+                        <button class="logout-btn" id="logoutBtn">Logout</button>
+                    </div>
                 </header>
 
                 <nav class="admin-mobile-nav">
@@ -2895,15 +2913,7 @@
             adminPanel.classList.remove('active');
         });
 
-        exitAdmin.addEventListener('click', () => {
-            adminPanel.classList.remove('active');
-        });
-
         viewSite.addEventListener('click', () => {
-            adminPanel.classList.remove('active');
-        });
-
-        viewSiteSidebar.addEventListener('click', () => {
             adminPanel.classList.remove('active');
         });
 
