@@ -6,18 +6,16 @@ import { motion } from 'framer-motion'
 import './App.css'
 
 function App() {
-  const [mode, setMode] = useState<'gallery' | 'contact' | 'lamp'>('gallery')
-
-  useEffect(() => {
+  const [mode] = useState<'gallery' | 'contact' | 'lamp'>(() => {
     const params = new URLSearchParams(window.location.search)
     const m = params.get('mode')
-    if (m === 'contact') {
-      setMode('contact')
-    } else if (m === 'lamp') {
-        setMode('lamp')
-    } else {
-      setMode('gallery')
-    }
+    if (m === 'contact') return 'contact';
+    if (m === 'lamp') return 'lamp';
+    return 'gallery';
+  });
+
+  useEffect(() => {
+    // keeping listener if needed, but not strictly required if query params don't change
   }, [])
 
   if (mode === 'contact') {
