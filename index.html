@@ -2382,6 +2382,10 @@
                     Sign in with Google
                 </button>
 
+                <button class="btn btn-secondary" style="width: 100%; margin-top: 10px;" id="cancelAdminBtn">
+                    Cancel & Return to Website
+                </button>
+
                 <div class="divider"><span>OR</span></div>
 
                 <form class="login-form" id="demoLoginForm">
@@ -2419,7 +2423,7 @@
 
                     <!-- Buttons on right -->
                     <div style="display: flex; gap: 15px; align-items: center;">
-                        <button class="view-site-btn" id="viewSite" style="background: #2563EB;">Return to Website ↗</button>
+                        <button class="btn btn-primary" id="viewSite" style="padding: 8px 16px; font-size: 14px;">Return to Website ↗</button>
                         <button class="logout-btn" id="logoutBtn">Logout</button>
                     </div>
                 </header>
@@ -2761,6 +2765,14 @@
         adminModal.addEventListener('click', (e) => {
             if (e.target === adminModal) adminModal.style.display = 'none';
         });
+
+        const cancelAdminBtn = document.getElementById('cancelAdminBtn');
+        if (cancelAdminBtn) {
+            cancelAdminBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                adminModal.style.display = 'none';
+            });
+        }
 
         // --- SUPABASE AUTH LOGIC ---
         const googleLoginBtn = document.getElementById('googleLoginBtn');
