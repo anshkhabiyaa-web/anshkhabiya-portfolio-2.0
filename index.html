@@ -2542,7 +2542,7 @@
     <script>
         // --- CONFIGURATION (FILL THESE FROM SUPABASE) ---
         const SUPABASE_URL = "https://yxypqctmivuuexttnubp.supabase.co";
-        const SUPABASE_ANON_KEY = "sb_publishable_MCQB2OGnopTDSbDnTGQN2w_LsETDptX";
+        const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inl4eXBxY3RtaXZ1dWV4dHRudWJwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzE3NjQ2MTAsImV4cCI6MjA4NzM0MDYxMH0.A7yIuJeprDW-8cyyfvCkjYH_mc2aBWE4CI03F9KbNtc";
 
         // Initialize Supabase (Global object is 'supabase')
         let supabaseInstance = null;
@@ -2766,24 +2766,35 @@
 
         // Sign in with Google
         googleLoginBtn.addEventListener('click', async () => {
+            console.log('Initiating Google Login...');
             if (!supabaseInstance) {
+                console.error('Supabase instance missing during login');
                 alert('Supabase is not initialized. Please check your Supabase URL and API key in the code.');
                 return;
             }
             // Set flag to allow auto-showing dashboard after redirect
             sessionStorage.setItem('isLoggingIn', 'true');
             try {
+                const redirectUrl = window.location.origin + window.location.pathname;
+                console.log('Redirecting to:', redirectUrl);
+                
                 const { error } = await supabaseInstance.auth.signInWithOAuth({
                     provider: 'google',
                     options: {
-                        redirectTo: window.location.origin + window.location.pathname
+                        redirectTo: redirectUrl,
+                        queryParams: {
+                            access_type: 'offline',
+                            prompt: 'consent',
+                        }
                     }
                 });
                 if (error) {
+                    console.error('Supabase Auth Error:', error);
                     sessionStorage.removeItem('isLoggingIn');
                     alert('Login Error: ' + error.message);
                 }
             } catch (err) {
+                console.error('Unexpected Login Error:', err);
                 sessionStorage.removeItem('isLoggingIn');
                 alert('Login Error: ' + err.message);
             }
