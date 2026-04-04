@@ -14,8 +14,9 @@
 
     <!-- Supabase SDK (UMD build for global window.supabase) -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
-    <!-- GSAP for CardSwap Animation -->
+    <!-- GSAP for CardSwap Animation + Parallax -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 
     <style>
         :root {
@@ -239,6 +240,26 @@
             z-index: 0;
         }
 
+        /* --- Parallax Layers --- */
+        .parallax-layers {
+            position: absolute;
+            inset: 0;
+            overflow: hidden;
+            pointer-events: none;
+            z-index: 1;
+        }
+        .parallax-layers img {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 115%;
+            object-fit: cover;
+            will-change: transform;
+        }
+        .parallax-layer-1 { opacity: 0.55; top: -8%; }
+        .parallax-layer-2 { opacity: 0.75; top: -5%; }
+        .parallax-layer-4 { opacity: 1;    top: 0;   }
+
         #hero .container {
             display: grid;
             grid-template-columns: 1.2fr 0.8fr;
@@ -246,7 +267,7 @@
             gap: 60px;
             min-height: 80vh;
             position: relative;
-            z-index: 2;
+            z-index: 3;
         }
 
         .hero-tag {
@@ -2128,6 +2149,18 @@
 
 
             <section id="hero">
+                <!-- Parallax Background Layers -->
+                <div class="parallax-layers" id="heroParallax">
+                    <img class="parallax-layer-1" id="pLayer1"
+                        src="https://cdn.prod.website-files.com/671752cd4027f01b1b8f1c7f/6717795be09b462b2e8ebf71_osmo-parallax-layer-3.webp"
+                        alt="" loading="eager" />
+                    <img class="parallax-layer-2" id="pLayer2"
+                        src="https://cdn.prod.website-files.com/671752cd4027f01b1b8f1c7f/6717795b4d5ac529e7d3a562_osmo-parallax-layer-2.webp"
+                        alt="" loading="eager" />
+                    <img class="parallax-layer-4" id="pLayer4"
+                        src="https://cdn.prod.website-files.com/671752cd4027f01b1b8f1c7f/6717795bb5aceca85011ad83_osmo-parallax-layer-1.webp"
+                        alt="" loading="eager" />
+                </div>
                 <div class="container">
                     <div class="hero-left">
                         <span class="hero-tag">I DON'T JUST CREATE. I SOLVE.</span>
@@ -3049,6 +3082,34 @@
             card.addEventListener('touchmove', (e) => handleMove(e), { passive: true });
             card.addEventListener('touchend', resetProps);
         })();
+    </script>
+
+    <!-- Hero Parallax Scroll Effect -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
+            gsap.registerPlugin(ScrollTrigger);
+
+            const hero = document.getElementById('hero');
+            const l1 = document.getElementById('pLayer1');
+            const l2 = document.getElementById('pLayer2');
+            const l4 = document.getElementById('pLayer4');
+
+            if (!hero || !l1 || !l2 || !l4) return;
+
+            const tl = gsap.timeline({
+                scrollTrigger: {
+                    trigger: hero,
+                    start: 'top top',
+                    end: 'bottom top',
+                    scrub: 0.5
+                }
+            });
+
+            tl.to(l1, { yPercent: 70, ease: 'none' }, '<')
+              .to(l2, { yPercent: 45, ease: 'none' }, '<')
+              .to(l4, { yPercent: 15, ease: 'none' }, '<');
+        });
     </script>
 
     </div><!-- /site-content -->
